@@ -1,0 +1,311 @@
+{{ head_parent }}
+
+<!--- extending the parent header -->
+    <title>Interactive Map</title> <!-- Setting unique title -->
+
+          <body>
+            <section class="section-features">
+
+<!--------------------------------------------------INTRO --------------------------------------------------------->
+
+              <div id="intro-to-svg" class="row">
+
+                <h2>Fields and Finds Map Interface</h2>
+
+                <p class="long-para">
+
+                  The interactive map below serves as a clickable interface to access information
+                  contained in the database. Click on either the <b>fields</b> or <b>finds</b> to
+                  retrieve all of the aspatial information stored about them.
+
+                </p>
+              </div> <!--- Moving out of intro section -->
+
+<!--------------------------------------------------INTERFACE --------------------------------------------------------->
+
+              <!-- Dividing the next section into two, SVG on left, results/controls on right -->
+              <div class="row"> <!-- Keeping the major following divs in-line -->
+
+<!-------------------------------------------USER RESULTS  --------------------------------------------------------->
+              <!-- Side text on the right to accompany SVG, with some display/filter controls -->
+              <div id="svg-text" class="col span-1-of-2"> <!-- Left of page section -->
+                <div class="box">
+
+                <!-- First section: Instructions and Results -->
+                <h3>Instructions</h3>
+                <p>
+
+                  Click on the fields or finds to retrieve their relevant aspatial information
+
+                </p><br>
+
+                <!-- Div area to serve as text area to post results from onClick innerHTML functions -->
+                <div id="side-results" class="click-results">
+                  <br><p><i>
+
+                    Your results will appear here
+
+                  </i></p>
+                </div><br>
+                <!-- Moving out of the results section -->
+
+<!--------------------------------------------------USER CONTROLS --------------------------------------------------------->
+
+            <!--- Second Section: Colour and Filter options --->
+            <h3>Toggle Options</h3>
+            <p>
+              Choose from the following options to dynamically change the information
+              displayed on the map
+            </p><br>
+            <div class="row" style=height:230px> <!-- Keeping the following in-line and padded -->
+
+              <div class="col span-1-of-2"> <!--- Left (of Display option) -->
+
+<!-------------------------------------------- COLOUR DISPLAY OPTIONS --------------------------------------------------------->
+                <div class="disp-col">Display Options</div>
+                <div class="content"> <!-- Content to relate to collapsible via JS -->
+
+                  <p><i>
+                    Select how you'd like to colour each element type
+                  </i><br></p>
+
+                  <!--- Radio form giving the user choice about how to colour their elements -->
+                  <form name="svg-form" action="./map_page.py" method="get">
+
+<!-------------------------------------------------- FIELDS COLOUR --------------------------------------------------------->
+
+                    <!-- Applying colours according to characteristic of each element -->
+                    <div class="col span-1-of-2"> <!-- Left (of Colour options) -->
+
+                      <p><b>Fields<br></b> <!-- Colour field according to... --->
+
+                      <input type="radio" name="field-disp" value="plain"> Plain white<br>
+                      <input type="radio" name="field-disp" value="crop"> Crop type<br>
+                      <input type="radio" name="field-disp" value="farmer"> Farmer<br></p>
+
+                    </div>
+<!-------------------------------------------------- FINDS COLOUR --------------------------------------------------------->
+
+                    <div class="col span-1-of-2"> <!-- Right (of Colour options) -->
+
+                       <p><b>Finds<br></b> <!--- Colour find according to... --->
+
+                       <input type="radio" name="find-disp" value="plain"> Plain white<br>
+                       <input type="radio" name="find-disp" value="type"> Material<br>
+                       <input type="radio" name="find-disp" value="era"> Era<br>
+                       <input type="radio" name="find-disp" value="use"> Use<br></p>
+
+                    </div>
+                </div>
+            </div> <!--- Moving out of colour display options --->
+<!--------------------------------------------------FILTER OPTIONS --------------------------------------------------------->
+
+        <!--- Moving into filter results options -->
+        <div class="col span-1-of-2"> <!-- Right (of Display options) -->
+
+            <!-- Filter options -->
+            <div class="disp-col">Filter Options</div>
+            <div class="content">
+              <p><i>
+
+                Select how you'd like to filter each element result
+
+              </i><br></p>
+
+                <!-- Applying filters according to characteristic of each element -->
+<!-------------------------------------------------- FIELDS FILTERS ----------------------------------------------------->
+
+                <div class="col span-1-of-2"> <!-- Left (of Filter options) -->
+                  <!-- Radio forms to allow user choice of filter -->
+
+                  <div class="filter-radios">
+
+                    <p><b>Fields<br></b> <!---Select fields according to... -->
+
+                      <input type="radio" id="btn-field-IDs" name="field-sel" value="ids"> ID Number<br>
+                      <input type="radio" id="btn-crops" name="field-sel" value="crops"> Crop Type<br>
+                      <input type="radio" id="btn-owners"  name="field-sel" value="owner"> Ownership<br>
+                      <input type="radio" id="btn-area"  name="field-sel" value="area"> Area (between)<br>
+                      <input type="radio" id="btn-all-fields" name="field-sel" value="all"> All (no filter)<br></p>
+
+                    </div>
+                    <p>Select: <br> <!---Dynamically fill the dropdown with relevant variables using JS -->
+                    <select id="field-dropdown" name="field-filter"></select><br></p>
+
+                </div>
+<!-------------------------------------------------- FINDS FILTERS ------------------------------------------------------>
+
+                <div class="col span-1-of-2" style="margin:0% 0%"> <!-- Right (of Filter options) -->
+                  <!-- Radio forms to allow user choice of filter -->
+
+                  <div class="filter-radios">
+                    <p><b>Finds<br></b> <!--- Select finds according to... -->
+                      <input type="radio" id="btn-find-IDs" name="find-sel" value="ids" class="btn-select"> ID Number<br>
+                      <input type="radio" id="btn-types" name="find-sel" value="types" class="btn-select"> Material<br>
+                      <input type="radio"  id="btn-eras" name="find-sel" value="eras" class="btn-select"> Era<br>
+                      <input type="radio"  id="btn-uses" name="find-sel" value="uses" class="btn-select"> Use<br>
+                      <input type="radio" id="btn-all-finds" name="find-sel" value="all" class="btn-select"> All (no filter)<br></p>
+                  </div>
+                    <p>Select:<br> <!---Dynamically fill the dropdown with relevant variables using JS -->
+                    <select id="find-dropdown" name="find-filter"></select><br></p>
+                </div>
+
+                <!-- Move out of RHS filter options -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--- Form controls (submit and reset) --->
+      <p class="long-para" style=text-align:center;padding-top:10px>
+      <button class="btn btn-select-full" type="submit" onClick="this.form.submit()">Submit Preferences</button>
+      </p>
+
+  </div> <!-- Moving out of columnised RHS of SVG page section -->
+
+<!-------------------------------------------------- SVG SECTION --------------------------------------------------------->
+
+    <div id="svg" class="col span-1-of-2 svg-class"> <!-- Right of page section -->
+
+        {{ svg }}
+
+<!--------------------------------------------- DYNAMIC EXTERNAL LEGEND ----------------------------------------------->
+
+        <div id="svg-legend" class="legend-box" style="margin-left:5.3%;margin-right:5.3%">
+
+            {{ legend }}
+
+        </div>
+        <p class="long-para" style=text-align:center;padding-top:10px;>
+        <button class="btn btn-select" type="submit" onClick="this.form.reset()">Clear Preferences</button>
+        </p>
+        </form> <!-- Closing the form after the final button -->
+    </div>
+    </section>
+<!---------------------------------------------- CUSTOM QUERY ------------------------------------------------------------->
+          <div class="row">
+          <h2>Custom Query Builder</h2>
+          <div class="box long-para" style=text-align:center>
+            Select what you'd like to query as either the 'Farmer'
+            or 'Archaeologist' out of the options below. Both of them allow
+            cross-querying between the datasets to some extent.
+            Please choose at least <b>one target value </b>(result), <b>one criteria set</b> and <b>one
+            subset value</b> of that criteria. Target value and criteria may be the same,
+            and the second value may also be left blank - unless you are conducting
+            a temporal or spatial query. Have a play!<br><br>
+
+            <div class="query-box">
+
+          <!-- Direction of farmer form variablse to correct script -->
+          <form id="custom-farmer-query" action="./queries/farmer_queries.py" method="get">
+            <i class="ion-ios-flower icon-big"></i>
+             <h3>I'm a Farmer</h3>
+              <p>I want to know the
+              <select id="fields-target-dropdown" name="target">
+                <option value="none">result</option><br>
+                <option value="Field_ID">field ID(s)</option><br>
+                <option value="owner">field owner(s)</option><br>
+                <option value="crop">crop type(s)</option><br>
+                <option value="area">field area(s)</option><br>
+                <option value="Find_ID">find ID(s)</option><br>
+                <option value="Find_era">find era(s)</option><br>
+                <option value="Find_type">find type(s)</option><br>
+                <option value="Find_use">find use(s)</option><br>
+              </select>
+
+              where the
+
+              <select id="farmer-crit-dropdown" name="criteria">
+                <option value="none">criteria</option><br>
+                <option value="Field_ID">field ID</option><br>
+                <option value="crop">crop type</option><br>
+                <option value="owner">field owner</option><br>
+                <option value="area">field area</option><br>
+                <option value="x_location">field's x location</option><br>
+                <option value="y_location">field's y location</option><br>
+                <option value="season">crop's growing season</option><br>
+              </select>
+
+              is (between)
+
+              <!-- Choices 1 and 2 to be dynamically filled by dropdown2.js -->
+              <select id="farmer-choice1-dropdown" name="choice1">
+                <option value="none">1st option</option>
+
+              </select>
+
+              and
+
+              <select id="farmer-choice2-dropdown" name="choice2">
+                <option value="none">2nd option</option>
+              </select><br>
+              </div>
+
+              <!-- Submission of form to correct script -->
+              <br><button type="submit" class="btn btn-select" onClick=this.form.submit()>Submit Query</button>
+           </form>
+           </div>
+<!---------------------------------------------------- FINDS QUERY ------------------------------------------------>
+          <div class="box long-para" style=text-align:center>
+          <div class="query-box">
+           <i class="ion-ios-hammer icon-big"></i>
+           <h3>I'm an Archaeologist</h3>
+           <!-- Direction of archaeological form to relevant script -->
+           <form id="custom-archaeo-query" action="./queries/archaeo_queries.py" method="get">
+               <p>I want to know the
+               <select id="finds-target-dropdown" name="target">
+                 <option value="none">result</option><br>
+                 <option value="Find_ID">Find ID(s)</option><br>
+                 <option value="era">era(s)</option><br>
+                 <option value="type">material(s)</option><br>
+                 <option value="use">use(s)</option><br>
+                 <option value="comments">field notes</option><br>
+               </select>
+
+               where the
+
+               <select id="archaeo-crit-dropdown" name="criteria">
+                 <option value="none">criteria</option><br>
+                 <option value="Find_ID">Find ID(s)</option><br>
+                 <option value="era">era(s)</option><br>
+                 <option value="type">matieral(s)</option><br>
+                 <option value="use">use(s)</option><br>
+                 <option value="x_location">x location</option><br>
+                 <option value="y_location">y location</option><br>
+                 <option value="Field_ID">field ID</option><br>
+                 <option value="crop">field crop</option><br>
+                 <option value="owner">field owner</option><br>
+               </select>
+
+                is (between)
+                <!-- Options 1 and 2 to be dynamically filled by dropdown2.js -->
+               <select id="archaeo-choice1-dropdown" name="choice1">
+                 <option value="none">1st option</option>
+
+               </select>
+
+               and
+
+               <select id="archaeo-choice2-dropdown" name="choice2">
+                 <option value="none">2nd option</option>
+               </select><br>
+               </div>
+
+               <!-- Submit archaeo query options to relevant script -->
+               <br><button type="submit" class="btn btn-select" onClick=this.form.submit()>Submit Query</button>
+              </form>
+           </div>
+         </div>
+
+
+
+
+
+<!-------------------------------------------------- FOOTER --------------------------------------------------------->
+
+        <!-- Out of SVG div for next section -->
+        <p class="long-para" style="text-align:center">
+        <!-- Footer with button to take back to the top -->
+          <br><a href="#top" style="color:#a9a9a9">Back to top</a></p><br>
+        </body>
+  </html>

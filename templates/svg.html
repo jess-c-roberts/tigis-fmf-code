@@ -1,0 +1,106 @@
+<xml version="1.0" encoding="UTF-8" standalone="no">
+
+<svg width="100%" height="100%" viewBox="-1 -1 18 18">
+
+<!------------------- ONCLICK JS SCRIPT FOR RESULTS BOX ---------------------->
+
+  <script id="query.js" type="text/javascript">
+  <![CDATA[
+  function fieldInfo(event) {
+    var width = parseFloat(event.target.getAttributeNS(null,"width"));
+    var height = parseFloat(event.target.getAttributeNS(null,"height"));
+    var field_id = parseFloat(event.target.getAttributeNS(null,"id"));
+    var owner = event.target.getAttributeNS(null,"owner");
+    var crop = event.target.getAttributeNS(null,"crop");
+    var crop_start = event.target.getAttributeNS(null,"crop_start");
+    var crop_end = event.target.getAttributeNS(null,"crop_end");
+    var area = (width*height);
+    document.getElementById("side-results").innerHTML = ("<p><b>Field: </b>" +field_id+ "<br/><b>Area: </b>" +area+ " sq. units<br/><b>Owner: </b>" +owner+ "<br/><b>Crop: </b>"+crop+ "<br/><b>Growing season: </b>"+crop_start+" to "+crop_end+"</p>");
+  }
+
+  function findInfo(event) {
+    var find_id = parseFloat(event.target.getAttributeNS(null,"id"));
+    var loc_x = parseFloat(event.target.getAttributeNS(null,"cx"));
+    var loc_y = parseFloat(event.target.getAttributeNS(null,"cy"));
+    var depth = event.target.getAttributeNS(null,"depth");
+    var type = event.target.getAttributeNS(null,"type");
+    var notes = event.target.getAttributeNS(null,"field_notes");
+    var era = event.target.getAttributeNS(null,"era");
+    var use = event.target.getAttributeNS(null,"use");
+    document.getElementById("side-results").innerHTML = ("<p><b>Find: </b>" +find_id+ "<br/><b>Location found: </b>(" +loc_x+ ", " +loc_y+ ")<br/><b>Depth found: </b>" +depth+ "<br/><b>Era: </b>" +era+ "<br/><b>Type: </b>" +type+ "<br/><b>Use: </b>" +use+ "<br/><b>Comments: </b>"+notes+"</p>");
+  }
+]]>
+</script>
+
+<!-------------------------- BACKGROUND GRID ----------------------------------->
+
+    <defs>
+      <pattern id="smallGrid" width="1" height="1" patternUnits="userSpaceOnUse">
+        <path d="M 1 0 L 0 0 0 1" fill="none" stroke="gray" stroke-width="0.05"/>
+      </pattern>
+      <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+        <rect width="16" height="16" fill="url(#smallGrid)"/>
+        <path d="M 16 0 L 0 0 0 16" fill="none" stroke="gray" stroke-width="0.07"/>
+      </pattern>
+    </defs>
+
+    <!--- Setting up the plot area including geographic transformation --->
+
+    <rect width="16.05" height="16.05" fill="url(#grid)" />
+    <g id="grid-labels" style=font-family:sans-serif;font-size:0.4;text-anchor:right>
+
+      {{ grid_labels }}
+
+    </g>
+    <g transform="translate(0,16) scale(1,-1)">
+
+      <!--- Plotting fields and finds in the right transformation --->
+<!---------------------------------- FIELDS ----------------------------------->
+
+      <g id="fields" style=stroke:black;stroke-width:0.05;stroke-dasharray:0.25,0.25>
+
+        {{ fields }}
+
+      </g>
+
+<!----------------------------------- FINDS ----------------------------------->
+
+      <g id="finds" style=fill:white;stroke:black;stroke-width:0.05>
+
+        {{ finds }}
+
+      </g>
+    </g>
+
+    <!--- Moving out of the transformation to plot the labels and legend --->
+
+<!-------------------------------- FIELDS ID ----------------------------------->
+
+    <g id="fields_ID"  style=font-family:sans-serif font-size="0.4">
+
+      {{ fields_ID }}
+
+      </g>
+
+<!-------------------------------- FINDS ID ----------------------------------->
+
+    <g id="finds_ID"  style=font-family:sans-serif font-size="0.45">
+
+      {{ finds_ID }}
+
+    </g>
+
+<!---------------------------------SVG LEGEND ------------------------------------>
+
+    <g id="legend" style=font-family:sans-serif>
+
+      <rect x="13" y="12" width="3" height="2.75" rx="0.5" ry="0.5" style=fill:white;stroke:black;stroke-width:0.04 /> <!--- Box --->
+      <text x="13.25" y="12.80" font-size="0.5" font-weight="bold">Legend</text> <!--- Title --->
+      <rect x="13.25" y="13.2" width="0.50" height="0.5" style=fill:none;stroke:black;stroke-width:0.03 /> <!--- Field ID symbol --->
+      <text x="13.85" y="13.6" text-anchor="right" font-size="0.4" >Field ID</text> <!--- Field ID label --->
+      <circle cx="13.5" cy="14.2" r="0.15" style=fill:white;stroke:black;stroke-width:0.05 /> <!--- Find ID symbol --->
+      <text x="13.85" y="14.3" text-anchor="right" font-size="0.4">Find ID</text> <!--- Find ID label -->
+
+      </g>
+
+  </svg>
